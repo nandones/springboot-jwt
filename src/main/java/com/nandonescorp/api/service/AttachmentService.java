@@ -6,6 +6,7 @@ import com.nandonescorp.api.model.Attachment;
 import com.nandonescorp.api.model.User;
 import com.nandonescorp.api.repository.AttachmentRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class AttachmentService {
         return AttachmentMapper.toDTO(saved);
     }
 
+    @Transactional(readOnly = true)
     public List<AttachmentResponseDTO> listByUser(User owner) {
         return attachmentRepository.findByUserId(owner.getId())
                 .stream().map(AttachmentMapper::toDTO).toList();

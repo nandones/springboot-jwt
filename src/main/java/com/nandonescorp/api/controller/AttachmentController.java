@@ -38,7 +38,8 @@ public class AttachmentController {
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
         User owner = userService.findByUsername(userDetails.getUsername());
-        return ResponseEntity.ok(attachmentService.listByUser(owner));
+        List<AttachmentResponseDTO> attachments = attachmentService.listByUser(owner);
+        return ResponseEntity.ok(attachments);
     }
 
     @GetMapping("/{id}")
@@ -47,7 +48,8 @@ public class AttachmentController {
             @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
         User owner = userService.findByUsername(userDetails.getUsername());
-        return ResponseEntity.ok(attachmentService.getByIdForUser(id, owner));
+        AttachmentResponseDTO attachment = attachmentService.getByIdForUser(id, owner);
+        return ResponseEntity.ok(attachment);
     }
 
     @DeleteMapping("/{id}")
